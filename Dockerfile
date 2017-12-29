@@ -41,11 +41,11 @@ run tar xvzf /tmp/$tmux_name.tar.gz && \
     env CPPFLAGS="-I$dest_prefix/include -I$dest_prefix/include/ncurses" LDFLAGS="-static -L$dest_prefix/lib -L$dest_prefix/include/ncurses -L$dest_prefix/include" make && \
     make install && \
     rm -fr /tmp/$tmux_name.tar.gz /tmp/$tmux_name && \
-    cp /usr/bin/tmux /usr/bin/tmux.stripped && \
-    strip /usr/bin/tmux.stripped && \
-    cp /usr/bin/tmux /usr/bin/tmux.upx && \
-    cp /usr/bin/tmux.stripped /usr/bin/tmux.stripped.upx && \
-    upx --best --ultra-brute /usr/bin/tmux.upx /usr/bin/tmux.stripped.upx
+    cp $dest_prefix/bin/tmux $dest_prefix/bin/tmux.stripped && \
+    strip $dest_prefix/bin/tmux.stripped && \
+    cp $dest_prefix/bin/tmux $dest_prefix/bin/tmux.upx && \
+    cp $dest_prefix/bin/tmux.stripped $dest_prefix/bin/tmux.stripped.upx && \
+    upx --best --ultra-brute $dest_prefix/bin/tmux.upx $dest_prefix/bin/tmux.stripped.upx
 
 # htop
 env htop_version 2.0.2
