@@ -6,7 +6,7 @@ run echo "http://nl.alpinelinux.org/alpine/edge/testing" >> /etc/apk/repositorie
 run apk update && apk upgrade && \
     apk add ghc cabal make gcc musl-dev linux-headers bash file curl bsd-compat-headers autoconf automake protobuf-dev zlib-dev openssl-dev g++ upx
 
-env dest_prefix /usr
+env dest_prefix /usr/local
 
 # libevent
 env libevent_version 2.0.22
@@ -130,3 +130,7 @@ run tar xvzf /tmp/jq.tar.gz && \
     cp $dest_prefix/bin/jq.stripped $dest_prefix/bin/jq.stripped.upx && \
     upx --best --ultra-brute $dest_prefix/bin/jq.stripped.upx $dest_prefix/bin/jq.upx
 cmd ["bash"]
+
+FROM alpine:edge
+env dest_prefix /usr/local
+copy --from=0 $dest_prefix/bin $dest_prefix/bin
